@@ -1,0 +1,19 @@
+<!-- adding plugin outlets here, not sure if we'll need it in core yet -->
+<DSection
+  @pageClass="has-sidebar"
+  @id="d-sidebar"
+  @class="sidebar-container"
+  @scrollTop={{false}}
+>
+
+  <PluginOutlet @name="sidebar-above-sections" />
+
+  <Sidebar::Sections
+    @currentUser={{this.currentUser}}
+    @collapsableSections={{true}}
+  />
+
+  <PluginOutlet @name="sidebar-above-footer" />
+
+  <Sidebar::Footer />
+</DSection>
