@@ -16,13 +16,12 @@ export default class FocusFullscreenChat extends Component {
   forceDrawerMode(route) {
     if (route.name.startsWith("chat.")) {
       // when entering full screen chat, we don't want to force the state
-      document.querySelector(".sidebar-wrapper").classList.add("focused-chat");
+      document.querySelector(".sidebar-wrapper")?.classList.add("focused-chat");
       return;
     } else {
       // when leaving full screen chat, we want to force the state
       document
-        .querySelector(".sidebar-wrapper")
-        .classList.remove("focused-chat");
+        .querySelector(".sidebar-wrapper")?.classList.remove("focused-chat");
       this.chatStateManager.prefersDrawer();
       return;
     }
