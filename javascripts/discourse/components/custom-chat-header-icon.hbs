@@ -1,0 +1,15 @@
+<a
+  {{on "click" this.toggleChatState}}
+  tabindex="0"
+  class={{concat-class "icon btn-flat" (if this.isActive "active")}}
+>
+  {{#if this.chatStateManager.isFullPageActive}}
+    {{d-icon "random"}}
+  {{else}}
+    {{d-icon "d-chat"}}
+  {{/if}}
+
+  {{#unless (or this.currentUserInDnD this.chatStateManager.isFullPageActive)}}
+    <Chat::Header::Icon::UnreadIndicator />
+  {{/unless}}
+</a>

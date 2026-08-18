@@ -1,9 +1,191 @@
-.focused-chat {
-  .sidebar-section {
-    &:not([data-section-name="chat-channels"]):not(
-        [data-section-name="chat-dms"]
-      ) {
+.sidebar-wrapper {
+  &.chat-mode {
+    .sidebar-section {
+      &:not([data-section-name="chat-channels"]):not(
+          [data-section-name="chat-dms"]
+        ) {
+        display: none;
+      }
+    }
+    @if $toggle_mode == "double" {
+      .chat-mode-toggle {
+        background: var(--primary-low);
+        color: var(--primary-high);
+        .chat-channel-unread-indicator {
+          border: 2px solid var(--primary-low);
+        }
+      }
+    }
+  }
+
+  &.forum-mode {
+    .sidebar-section {
+      &[data-section-name="chat-channels"],
+      &[data-section-name="chat-dms"] {
+        display: none;
+      }
+    }
+
+    @if $toggle_mode == "double" {
+      .forum-mode-toggle {
+        background: var(--primary-low);
+        color: var(--primary-high);
+        .chat-channel-unread-indicator {
+          border: 2px solid var(--primary-low);
+        }
+      }
+    }
+  }
+
+  .sidebar-sections {
+    padding-top: 1em;
+  }
+}
+
+.sidebar-footer-wrapper {
+  .sidebar-footer-actions {
+    width: 100%;
+    display: flex;
+    margin-left: 0;
+  }
+}
+
+.sidebar-footer__mode-toggle {
+  display: flex;
+
+  @if $toggle_position == "top" {
+    @if $toggle_mode == "double" {
+      border-bottom: 1px solid var(--primary-low);
+    }
+  } @else {
+    border-top: 1px solid var(--primary-low);
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    padding: 0.75em;
+    color: var(--primary-high);
+    flex: 1 1 100%;
+    justify-content: center;
+
+    &:hover {
+      background: var(--primary-low);
+      color: var(--primary);
+      .chat-channel-unread-indicator {
+        border: 2px solid var(--primary-low);
+      }
+    }
+  }
+  .chat-channel-unread-indicator {
+    margin-left: 2.5em;
+    margin-top: 1em;
+    position: absolute;
+
+    width: 1em;
+    height: 1em;
+    border: 2px solid var(--primary-very-low);
+    font-size: var(--font-down-5);
+    z-index: 2;
+    .number {
       display: none;
+    }
+  }
+}
+
+@if $toggle_mode == "single" {
+  .sidebar-footer__mode-toggle {
+    margin: 1em 1.3em;
+    border-top: none;
+
+    @if $toggle_position == "top" {
+      margin: 0;
+    }
+
+    .btn-default {
+      width: 100%;
+    }
+  }
+}
+
+@if $toggle_position == "bottom" {
+  // hide scroll fade for now
+  .sidebar-footer-wrapper .sidebar-footer-container::before {
+    display: none;
+  }
+}
+
+// hide default chat header toggle on desktop
+.desktop-view {
+  .chat-header-icon {
+    display: none;
+  }
+}
+
+// hide custom chat header toggle on mobile
+.mobile-view {
+  .custom-chat-header-icon {
+    display: none;
+  }
+}
+
+// custom chat header toggle notification styles
+// mostly lifted from core and applied to a different class name
+.header-dropdown-toggle.custom-chat-header-icon {
+  .icon {
+    .chat-channel-unread-indicator {
+      border-radius: 1em;
+      border: 2px solid var(--header_background);
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      transition: border-color linear 0.15s;
+
+      &.urgent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        min-width: 14px;
+        padding: 2px;
+        right: 0;
+      }
+
+      &__number {
+        font-size: 0.7rem;
+        line-height: 15px;
+        height: inherit;
+
+        &.-too-high {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+
+  span.icon {
+    cursor: auto;
+
+    &:hover {
+      .d-icon {
+        color: var(--header_primary-low-mid);
+      }
+
+      background: none;
+    }
+  }
+
+  a.icon {
+    &.active {
+      .d-icon-comment {
+        color: var(--primary-medium);
+      }
+    }
+
+    &:hover {
+      .chat-channel-unread-indicator {
+        border-color: var(--primary-low);
+      }
     }
   }
 }
